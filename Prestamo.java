@@ -3,22 +3,25 @@ package co.edu.uniquindio.poo;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.time.temporal.ChronoUnit;
 
 public class Prestamo {
 
     private LocalDate fechaPrestamo, fechaEntrega;
     private double costoDia;
     private String codigo;
+    private Biblioteca biblioteca;
     private Estudiante estudiante;
     private Bibliotecario bibliotecario;
     private Collection<DetallePrestamo> detallePrestamos;
 
     public Prestamo(LocalDate fechaPrestamo, LocalDate fechaEntrega, double costoDia, String codigo,
-            Estudiante estudiante, Bibliotecario bibliotecario) {
+            Biblioteca biblioteca, Estudiante estudiante, Bibliotecario bibliotecario) {
         this.fechaPrestamo = fechaPrestamo;
         this.fechaEntrega = fechaEntrega;
         this.costoDia = costoDia;
         this.codigo = codigo;
+        this.biblioteca = biblioteca;
         this.estudiante = estudiante;
         this.bibliotecario = bibliotecario;
         detallePrestamos = new LinkedList<>();
@@ -56,6 +59,14 @@ public class Prestamo {
         this.codigo = codigo;
     }
 
+    public Biblioteca getBiblioteca() {
+        return biblioteca;
+    }
+
+    public void setBiblioteca(Biblioteca biblioteca) {
+        this.biblioteca = biblioteca;
+    }
+
     public Estudiante getEstudiante() {
         return estudiante;
     }
@@ -83,9 +94,25 @@ public class Prestamo {
     @Override
     public String toString() {
         return "Prestamo [fechaPrestamo=" + fechaPrestamo + ", fechaEntrega=" + fechaEntrega + ", costoDia=" + costoDia
-                + ", codigo=" + codigo + ", estudiante=" + estudiante + ", bibliotecario=" + bibliotecario
-                + ", detallePrestamos=" + detallePrestamos + "]";
+                + ", codigo=" + codigo + ", biblioteca=" + biblioteca.getNombre() + ", estudiante=" + estudiante.getNombre()
+                + ", bibliotecario=" + bibliotecario.getNombre() + ", detallePrestamos=" + detallePrestamos + "]";
     }
-    
+
+//------------------------------------------------DetallesPrestamo--------------------------------------------------//
+
+    public void agregarDetallePrestamo(DetallePrestamo detallePrestamo){
+        detallePrestamos.add(detallePrestamo);
+        detallePrestamo.getLibro().setUnidadesDisponibles(detallePrestamo.getLibro().getUnidadesDisponibles() - detallePrestamo.getCantidad());
+        detallePrestamo.getLibro().setEstado(false);    
+    }
+    public void eliminarDetallePrestamo(DetallePrestamo detallePrestamo){
+        detallePrestamos.remove(detallePrestamo);
+        detallePrestamo.getLibro().setUnidadesDisponibles(detallePrestamo.getLibro().getUnidadesDisponibles() + detallePrestamo.getCantidad());
+        detallePrestamo.getLibro().setEstado(true);
+    }
+    public void actualizarSubtotal(DetallePrestamo detallePrestamo){
+        long diasDiferencia = ChronoUnit.DAYS.between(fechaPrestamo, fechaEntrega);
+        detallePrestamo.setSubTotal(diasDiferencia * costoDia);
+    }
 
 }
