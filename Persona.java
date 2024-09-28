@@ -46,8 +46,7 @@ public class Persona {
 
     @Override
     public String toString() {
-        return "Persona [nombre=" + nombre + ", cedula=" + cedula + ", correo=" + correo + ", telefono=" + telefono
-                + "]";
+        return "\n[nombre=" + nombre + ", cedula=" + cedula + ", correo=" + correo + ", telefono=" + telefono;
     }
 
 }
