@@ -38,12 +38,19 @@ public class Bibliotecario extends Persona {
     public void setPrestamos(Collection<Prestamo> prestamos) {
         this.prestamos = prestamos;
     }
+
+    @Override
+    public String toString() {
+        return "\nBibliotecario ["+ super.toString() + "salario=" + salario + ", antiguedad=" + antiguedad +
+        ", prestamos=" + prestamos + "]";
+    }
+    
 //--------------------------------------------------Prestamos-------------------------------------------------------//
 
-    public void agregarPrestamo(Prestamo prestamo) {
+    public void agregarPrestamoBibliotecario(Prestamo prestamo) {
         prestamos.add(prestamo);
     }
-    public void eliminarPrestamo(Prestamo prestamo) {
+    public void eliminarPrestamoBibliotecario(Prestamo prestamo) {
         prestamos.remove(prestamo);
     }
 
