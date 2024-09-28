@@ -20,16 +20,25 @@ public class Estudiante extends Persona {
     public void setEdad(int edad) {
         this.edad = edad;
     }
+    public Collection<Prestamo> getPrestamos() {
+        return prestamos;
+    }
+
+    public void setEdad(Collection<Prestamo> prestamos) {
+        this.prestamos = prestamos;
+    }
+
 
     @Override
     public String toString() {
-        return "Estudiante [edad=" + edad + ", prestamos=" + prestamos + "]";
+        return "\n\nEstudiante ["+ super.toString() + ", edad=" + edad + ", \n\nprestamos=" + prestamos +"]";
     }
-//--------------------------------------------------Prestamos-------------------------------------------------------//
-    public void agregarPrestamo(Prestamo prestamo) {
+
+    //--------------------------------------------------Prestamos-------------------------------------------------------//
+    public void agregarPrestamoEstudiante(Prestamo prestamo) {
         prestamos.add(prestamo);
     }
-    public void eliminarPrestamo(Prestamo prestamo) {
+    public void eliminarPrestamoEstudiante(Prestamo prestamo) {
         prestamos.remove(prestamo);
     }
 }
